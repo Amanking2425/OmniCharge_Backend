@@ -10,8 +10,8 @@ import java.util.Date;
 @Component
 public class JwtUtil {
 
-    private static final String SECRET =
-        "omnicharge-super-secret-key-must-be-256-bits-long-yes!";
+	private static final String SECRET =
+		    "omincharge-super-secret-key-for-jwt-token-generation-256bits!!";
     private static final long ACCESS_EXPIRY  = 1000L * 60 * 15;      // 15 minutes
     private static final long REFRESH_EXPIRY = 1000L * 60 * 60 * 24 * 7; // 7 days
 

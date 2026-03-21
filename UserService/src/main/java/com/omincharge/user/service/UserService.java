@@ -6,17 +6,24 @@ import com.omincharge.user.exception.UserAlreadyExistsException;
 import com.omincharge.user.exception.UserNotFoundException;
 import com.omincharge.user.repository.UserRepository;
 import com.omincharge.user.security.JwtUtil;
-import lombok.RequiredArgsConstructor;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
-@RequiredArgsConstructor
 public class UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtUtil jwtUtil;
+
+    public UserService(UserRepository userRepository,
+                       PasswordEncoder passwordEncoder,
+                       JwtUtil jwtUtil) {
+        this.userRepository  = userRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.jwtUtil         = jwtUtil;
+    }
 
     public AuthResponse register(RegisterRequest request) {
         if (userRepository.existsByEmail(request.getEmail())) {
@@ -49,7 +56,8 @@ public class UserService {
     public AuthResponse login(LoginRequest request) {
         User user = userRepository.findByEmail(request.getEmail())
                 .orElseThrow(() ->
-                    new UserNotFoundException("No user found with email: " + request.getEmail()));
+                    new UserNotFoundException(
+                        "No user found with email: " + request.getEmail()));
 
         if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
             throw new RuntimeException("Invalid password");
