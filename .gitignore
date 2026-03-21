@@ -1,0 +1,7 @@
+.metadata/
+target/
+bin/
+*.log
+*.class
+*.jar
+node_modules/
