@@ -8,6 +8,7 @@ spring:
 eureka:
   instance:
     hostname: localhost
+    prefer-ip-address: true
   client:
     register-with-eureka: false
     fetch-registry: false
@@ -15,6 +16,7 @@ eureka:
       defaultZone: http://localhost:8761/eureka/
   server:
     wait-time-in-ms-when-sync-empty: 0
+    enable-self-preservation: false
 
 management:
   endpoints:

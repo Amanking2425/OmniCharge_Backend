@@ -1,0 +1,36 @@
+# Git
+.git
+.gitignore
+
+# IDE
+.idea
+*.iml
+.vscode
+.settings
+.classpath
+.project
+
+# Build artifacts
+**/target/
+**/bin/
+
+# Logs
+*.log
+logs/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temp files
+*.tmp
+*.bak
+*.swp
+
+# Test files
+**/src/test/**
+**/src/test/resources/**
+
+# Documentation (optional)
+README.md
+*.md
