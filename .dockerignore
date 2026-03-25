@@ -10,10 +10,6 @@
 .classpath
 .project
 
-# Build artifacts
-**/target/
-**/bin/
-
 # Logs
 *.log
 logs/
@@ -31,6 +27,9 @@ Thumbs.db
 **/src/test/**
 **/src/test/resources/**
 
-# Documentation (optional)
+# Documentation
 README.md
 *.md
+
+# Keep target JARs - needed for Docker build
+# **/target/ is intentionally NOT excluded

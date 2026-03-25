@@ -60,7 +60,7 @@ configure_and_start() {
   export SPRING_DATASOURCE_USERNAME="${DB_USER}"
   export SPRING_DATASOURCE_PASSWORD="${DB_PASSWORD}"
   echo "DB URL: $SPRING_DATASOURCE_URL"
-  
+
   echo "Starting supervisord..."
   exec /usr/bin/supervisord -c /app/supervisor/supervisord.conf
 }
