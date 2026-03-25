@@ -1,13 +1,6 @@
 spring:
   application:
     name: recharge-service
-  config:
-    import: optional:configserver:http://localhost:8888
-  datasource:
-    url: jdbc:postgresql://localhost:5432/omincharge
-    username: aman
-    password: tiger
-    driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
       ddl-auto: update
@@ -17,9 +10,6 @@ server:
   port: 8082
 
 eureka:
-  client:
-    service-url:
-      defaultZone: http://localhost:8761/eureka/
   instance:
     prefer-ip-address: true
 
@@ -28,3 +18,43 @@ management:
     web:
       exposure:
         include: "*"
+  tracing:
+    sampling:
+      probability: 1.0
+  zipkin:
+    tracing:
+      endpoint: http://localhost:9411/api/v2/spans
+
+---
+spring:
+  config:
+    activate:
+      on-profile: default
+    import: optional:configserver:http://localhost:8888
+  datasource:
+    url: jdbc:postgresql://localhost:5432/omincharge
+    username: aman
+    password: tiger
+    driver-class-name: org.postgresql.Driver
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+
+---
+spring:
+  config:
+    activate:
+      on-profile: docker
+    import: optional:configserver:http://config-server:8888
+  datasource:
+    url: jdbc:postgresql://postgres:5432/omincharge
+    username: aman
+    password: tiger
+    driver-class-name: org.postgresql.Driver
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://discovery-server:8761/eureka/

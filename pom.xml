@@ -1,0 +1,24 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+         http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.omnicharge</groupId>
+    <artifactId>OmniCharge</artifactId>
+    <version>1.0</version>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>ApiGateway</module>
+        <module>UserService</module>
+        <module>PaymentService</module>
+        <module>RechargeService</module>
+        <module>OperatoraService</module>
+        <module>NotificationService</module>
+        <module>ConfigServer</module>
+        <module>DiscoveryServer</module>
+    </modules>
+
+</project>

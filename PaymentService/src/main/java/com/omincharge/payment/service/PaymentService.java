@@ -136,7 +136,8 @@ public class PaymentService {
                 .findByUserIdOrderByCreatedAtDesc(userId)
                 .stream()
                 .map(this::toResponse)
-                .collect(Collectors.toList());
+                //.collect(Collectors.toList());
+                .toList();
     }
 
     public List<PaymentResponse> getTransactionsByRecharge(Long rechargeId) {
@@ -144,9 +145,18 @@ public class PaymentService {
                 .findByRechargeId(rechargeId)
                 .stream()
                 .map(this::toResponse)
-                .collect(Collectors.toList());
+                //.collect(Collectors.toList());
+                .toList();
     }
 
+    public List<PaymentResponse> getAllTransactions() {
+        return transactionRepository.findAll()
+                .stream()
+                .map(this::toResponse)
+                //.collect(Collectors.toList());
+                .toList();
+    }
+    
     private PaymentResponse toResponse(Transaction t) {
         return PaymentResponse.builder()
                 .id(t.getId())

@@ -31,7 +31,8 @@ public class OperatorService {
         return operatorRepository.findAll()
                 .stream()
                 .map(this::toOperatorResponse)
-                .collect(Collectors.toList());
+                //.collect(Collectors.toList());
+                .toList();
     }
 
     public OperatorResponse getOperatorById(Long id) {
@@ -64,7 +65,7 @@ public class OperatorService {
     public OperatorResponse updateOperator(Long id, OperatorRequest request) {
         Operator operator = operatorRepository.findById(id)
                 .orElseThrow(() ->
-                    new OperatorNotFoundException("Operator not found with id: " + id));
+                    new OperatorNotFoundException("Operator not found id: " + id));
 
         operator.setName(request.getName());
         operator.setCode(request.getCode());
@@ -79,12 +80,13 @@ public class OperatorService {
         operatorRepository.findById(operatorId)
                 .orElseThrow(() ->
                     new OperatorNotFoundException(
-                        "Operator not found with id: " + operatorId));
+                        "Operator not found whose id: " + operatorId));
 
         return planRepository.findByOperatorId(operatorId)
                 .stream()
                 .map(this::toPlanResponse)
-                .collect(Collectors.toList());
+                //.collect(Collectors.toList());
+                .toList();
     }
 
     public PlanResponse getPlanById(Long planId) {
@@ -98,7 +100,7 @@ public class OperatorService {
         Operator operator = operatorRepository.findById(operatorId)
                 .orElseThrow(() ->
                     new OperatorNotFoundException(
-                        "Operator not found with id: " + operatorId));
+                        "Operator not found where id is: " + operatorId));
 
         RechargePlan plan = RechargePlan.builder()
                 .operator(operator)

@@ -22,17 +22,16 @@ public class NotificationService {
         log.info("Amount      : Rs. {}", event.getAmount());
         log.info("Status      : {}", event.getStatus());
         log.info("Recharge ID : {}", event.getRechargeId());
-        log.info("=================================================");
+        
     }
 
     public void sendPaymentNotification(PaymentCompletedEvent event) {
-        log.info("=================================================");
+        log.info("----------------##########----------------------");
         log.info("PAYMENT NOTIFICATION SENT");
         log.info("To User ID      : {}", event.getUserId());
         log.info("Transaction Ref : {}", event.getTransactionRef());
         log.info("Amount          : Rs. {}", event.getAmount());
         log.info("Payment Method  : {}", event.getPaymentMethod());
         log.info("Status          : {}", event.getStatus());
-        log.info("=================================================");
     }
 }

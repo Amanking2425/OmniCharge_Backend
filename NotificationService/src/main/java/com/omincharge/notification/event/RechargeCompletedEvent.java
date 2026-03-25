@@ -11,7 +11,9 @@ public class RechargeCompletedEvent {
     private String operatorName;
     private String status;
 
-    public RechargeCompletedEvent() {}
+    public RechargeCompletedEvent() {
+    	// Default constructor required for serialization/deserialization
+    }
 
     public Long getRechargeId() { return rechargeId; }
     public Long getUserId() { return userId; }

@@ -12,7 +12,9 @@ public class PaymentCompletedEvent {
     private String status;
     private String transactionRef;
 
-    public PaymentCompletedEvent() {}
+    public PaymentCompletedEvent() {
+    	// Default constructor required for serialization/deserialization
+    }
 
     public Long getTransactionId() { return transactionId; }
     public Long getRechargeId() { return rechargeId; }

@@ -14,7 +14,11 @@ spring:
 
 eureka:
   client:
-    enabled: false
+    enabled: true
+    service-url:
+      defaultZone: http://discovery-server:8761/eureka/
+  instance:
+    prefer-ip-address: true
 
 management:
   endpoints:

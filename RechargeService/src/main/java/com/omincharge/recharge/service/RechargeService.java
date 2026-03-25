@@ -133,6 +133,13 @@ public class RechargeService {
         historyRepository.save(history);
     }
 
+    public List<RechargeResponse> getAllRecharges() {
+        return rechargeRepository.findAll()
+                .stream()
+                .map(this::toResponse)
+                .collect(Collectors.toList());
+    }
+    
     private RechargeResponse toResponse(RechargeRequest r) {
         return RechargeResponse.builder()
                 .id(r.getId())

@@ -17,21 +17,21 @@ public class GlobalExceptionHandler {
     public ResponseEntity<Map<String, String>> handleNotFound(
             OperatorNotFoundException ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body(Map.of("error", ex.getMessage()));
+                .body(Map.of("Error1", ex.getMessage()));
     }
 
     @ExceptionHandler(OperatorAlreadyExistsException.class)
     public ResponseEntity<Map<String, String>> handleAlreadyExists(
             OperatorAlreadyExistsException ex) {
         return ResponseEntity.status(HttpStatus.CONFLICT)
-                .body(Map.of("error", ex.getMessage()));
+                .body(Map.of("Error2", ex.getMessage()));
     }
 
     @ExceptionHandler(PlanNotFoundException.class)
     public ResponseEntity<Map<String, String>> handlePlanNotFound(
             PlanNotFoundException ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body(Map.of("error", ex.getMessage()));
+                .body(Map.of("Error3", ex.getMessage()));
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -49,6 +49,6 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Map<String, String>> handleGeneral(Exception ex) {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(Map.of("error", "Something went wrong: " + ex.getMessage()));
+                .body(Map.of("Error4", "Something went wrong: " + ex.getMessage()));
     }
 }

@@ -44,10 +44,10 @@ public class JwtUtil {
         return getClaims(token).getSubject();
     }
 
+    
     public String extractRole(String token) {
-        return (String) getClaims(token).get("role");
+        return getClaims(token).get("role", String.class);
     }
-
     public boolean isTokenValid(String token) {
         try {
             getClaims(token);

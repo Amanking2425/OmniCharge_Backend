@@ -1,40 +1,86 @@
 spring:
   application:
     name: api-gateway
+
   cloud:
     gateway:
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedMethods: "*"
+            allowedHeaders: "*"
+
       discovery:
         locator:
           enabled: true
           lower-case-service-id: true
+
       routes:
-        - id: user-service
+
+        # ================= USER SERVICE =================
+        - id: user-service-swagger
+          uri: lb://user-service
+          predicates:
+            - Path=/api/v1/users/v3/api-docs
+          filters:
+            - RewritePath=/api/v1/users/v3/api-docs, /v3/api-docs
+
+        - id: user-service-api
           uri: lb://user-service
           predicates:
             - Path=/api/v1/users/**
 
-        - id: operator-service
+
+        # ================= OPERATOR SERVICE =================
+        - id: operator-service-swagger
+          uri: lb://operator-service
+          predicates:
+            - Path=/api/v1/operators/v3/api-docs
+          filters:
+            - RewritePath=/api/v1/operators/v3/api-docs, /v3/api-docs
+
+        - id: operator-service-api
           uri: lb://operator-service
           predicates:
             - Path=/api/v1/operators/**
 
-        - id: recharge-service
+
+        # ================= RECHARGE SERVICE =================
+        - id: recharge-service-swagger
+          uri: lb://recharge-service
+          predicates:
+            - Path=/api/v1/recharges/v3/api-docs
+          filters:
+            - RewritePath=/api/v1/recharges/v3/api-docs, /v3/api-docs
+
+        - id: recharge-service-api
           uri: lb://recharge-service
           predicates:
             - Path=/api/v1/recharges/**
 
-        - id: payment-service
+
+        # ================= PAYMENT SERVICE =================
+        - id: payment-service-swagger
+          uri: lb://payment-service
+          predicates:
+            - Path=/api/v1/payments/v3/api-docs
+          filters:
+            - RewritePath=/api/v1/payments/v3/api-docs, /v3/api-docs
+
+        - id: payment-service-api
           uri: lb://payment-service
           predicates:
             - Path=/api/v1/payments/**
+
 
 eureka:
   client:
     service-url:
       defaultZone: http://localhost:8761/eureka/
-    enabled: true
   instance:
     prefer-ip-address: true
+
 
 management:
   endpoints:
@@ -46,3 +92,24 @@ management:
       show-details: always
     gateway:
       enabled: true
+    
+  tracing:
+   sampling:
+      probability: 1.0
+
+  zipkin:
+    tracing:
+      endpoint: http://localhost:9411/api/v2/spans
+
+springdoc:
+  swagger-ui:
+    urls:
+      - name: User Service
+        url: /api/v1/users/v3/api-docs
+      - name: Operator Service
+        url: /api/v1/operators/v3/api-docs
+      - name: Recharge Service
+        url: /api/v1/recharges/v3/api-docs
+      - name: Payment Service
+        url: /api/v1/payments/v3/api-docs
+    urls-primary-name: User Service

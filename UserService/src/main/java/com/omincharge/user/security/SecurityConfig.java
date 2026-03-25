@@ -31,7 +31,13 @@ public class SecurityConfig {
                     "/api/v1/users/register",
                     "/api/v1/users/login",
                     "/api/v1/users/refresh",
-                    "/actuator/**"
+                    "/api/v1/users/send-otp",
+                    "/api/v1/users/verify-otp",
+                    "/actuator/**",
+                    "/swagger-ui/**",
+                    "/swagger-ui.html",
+                    "/v3/api-docs/**",
+                    "/v3/api-docs"
                 ).permitAll()
                 .anyRequest().authenticated()
             )
