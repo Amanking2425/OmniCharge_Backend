@@ -9,6 +9,9 @@ RUN apk add --no-cache \
 
 RUN mkdir -p /app/services /app/logs /app/supervisor
 
+# Fix for Eureka hostname resolution (all services in same container)
+RUN echo "127.0.0.1 discovery-server" >> /etc/hosts
+
 COPY DiscoveryServer/target/*.jar /app/services/
 COPY ConfigServer/target/*.jar /app/services/
 COPY ApiGateway/target/*.jar /app/services/
