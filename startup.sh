@@ -2,7 +2,7 @@
 set -e
 
 echo "========================================="
-echo "OmniCharge Backend - Starting Services"
+echo "OmniCharge Backend - Starting Servicess"
 echo "========================================="
 
 DB_HOST="${DB_HOST:-localhost}"
