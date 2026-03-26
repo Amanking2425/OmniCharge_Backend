@@ -28,7 +28,7 @@ ENV DB_PORT=5432
 ENV DB_NAME=omnicharge
 ENV DB_USER=postgres
 ENV DB_PASSWORD=
-ENV JAVA_OPTS="-Xms64m -Xmx180m -XX:+UseSerialGC -XX:MaxMetaspaceSize=80m"
+ENV JAVA_OPTS="-Xms128m -Xmx400m -XX:+UseSerialGC -XX:MaxMetaspaceSize=192m -XX:+ExitOnOutOfMemoryError"
 
 EXPOSE 8080 8081 8082 8083 8084 8085 8086 8087 8761 8888
 

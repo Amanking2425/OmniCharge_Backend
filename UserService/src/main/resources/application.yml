@@ -1,7 +1,23 @@
 spring:
   application:
     name: user-service
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        connection:
+          provider_disconnects_on_connection_validation: false
 
+  datasource:
+    hikari:
+      connection-timeout: 30000
+      idle-timeout: 600000
+      max-lifetime: 1800000
+      maximum-pool-size: 10
+      minimum-idle: 2
+      connection-test-query: SELECT 1
   mail:
     host: smtp.gmail.com
     port: 587
@@ -14,17 +30,16 @@ spring:
           starttls:
             enable: true
 
-  jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: true
-
 server:
   port: 8081
 
 eureka:
   instance:
     prefer-ip-address: true
+  client:
+    registry-fetch-interval-seconds: 30
+    instance-info-replication-interval-seconds: 30
+    initial-instance-info-replication-interval-seconds: 30
 
 management:
   endpoints:
