@@ -95,6 +95,9 @@ start_remaining_services() {
 main() {
   mkdir -p /app/logs
 
+  # Fix for Eureka hostname resolution (all services in same container)
+  echo "127.0.0.1 discovery-server" >> /etc/hosts
+
   export SPRING_DATASOURCE_URL="jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_NAME}"
   export SPRING_DATASOURCE_USERNAME="${DB_USER}"
   export SPRING_DATASOURCE_PASSWORD="${DB_PASSWORD}"
