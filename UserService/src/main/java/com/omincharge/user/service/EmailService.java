@@ -27,4 +27,19 @@ public class EmailService {
         );
         mailSender.send(message);
     }
+
+    // --- NEW METHOD ADDED HERE ---
+    public void sendWelcomeEmail(String toEmail, String firstName) {
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(toEmail);
+        message.setSubject("Welcome to OmniCharge!");
+        message.setText(
+            "Hello " + firstName + ",\n\n" +
+            "Congratulations! Your registration with OmniCharge was successful.\n" +
+            "We are thrilled to have you on board.\n\n" +
+            "Best regards,\n" +
+            "Team OmniCharge"
+        );
+        mailSender.send(message);
+    }
 }

@@ -27,18 +27,19 @@ public class SecurityConfig {
             .sessionManagement(session ->
                 session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers(
-                    "/api/v1/users/register",
-                    "/api/v1/users/login",
-                    "/api/v1/users/refresh",
-                    "/api/v1/users/send-otp",
-                    "/api/v1/users/verify-otp",
-                    "/actuator/**",
-                    "/swagger-ui/**",
-                    "/swagger-ui.html",
-                    "/v3/api-docs/**",
-                    "/v3/api-docs"
-                ).permitAll()
+            		.requestMatchers(
+            			    "/api/v1/users/register",
+            			    "/api/v1/users/login",
+            			    "/api/v1/users/refresh",
+            			    "/api/v1/users/send-otp",
+            			    "/api/v1/users/verify-otp",
+            			    "/actuator/**",
+            			    "/swagger-ui/**",
+            			    "/swagger-ui.html",
+            			    "/webjars/**",
+            			    "/v3/api-docs",
+            			    "/v3/api-docs/**"
+            			).permitAll()
                 .anyRequest().authenticated()
             )
             .addFilterBefore(jwtAuthFilter,

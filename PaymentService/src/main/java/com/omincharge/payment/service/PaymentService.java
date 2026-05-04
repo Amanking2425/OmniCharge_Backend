@@ -102,7 +102,7 @@ public class PaymentService {
 
         transaction = transactionRepository.save(transaction);
 
-        // Publish payment event to RabbitMQ
+     // Publish payment event to RabbitMQ
         PaymentCompletedEvent event = new PaymentCompletedEvent(
             transaction.getId(),
             transaction.getRechargeId(),
@@ -112,9 +112,15 @@ public class PaymentService {
             transaction.getStatus().name(),
             transaction.getTransactionRef()
         );
-        rabbitTemplate.convertAndSend(paymentExchange, paymentRoutingKey, event);
+
+        try {
+            rabbitTemplate.convertAndSend(paymentExchange, paymentRoutingKey, event);
+        } catch (Exception e) {
+            System.out.println("RabbitMQ is not running. Payment saved, but notification event was not sent: " + e.getMessage());
+        }
 
         return toResponse(transaction);
+
     }
 
     public PaymentResponse getTransactionById(Long id) {

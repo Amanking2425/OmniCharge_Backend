@@ -24,7 +24,7 @@
 	</properties>
 
 	<dependencies>
-		<!-- Gateway - MUST be reactive, do NOT add spring-boot-starter-web -->
+		
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-gateway</artifactId>
@@ -46,7 +46,7 @@
 		<dependency>
 			<groupId>org.springdoc</groupId>
 			<artifactId>springdoc-openapi-starter-webflux-ui</artifactId>
-			<version>2.3.0</version>
+			<version>2.5.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

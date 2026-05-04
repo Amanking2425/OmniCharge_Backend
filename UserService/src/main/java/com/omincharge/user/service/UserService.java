@@ -20,6 +20,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class UserService {
@@ -45,15 +46,14 @@ public class UserService {
     }
 
     public AuthResponse register(RegisterRequest request) {
-
         logger.info("Registering user with email: {}", request.getEmail());
-
+        
         if (userRepository.existsByEmail(request.getEmail())) {
             logger.error("Registration failed - user already exists: {}", request.getEmail());
             throw new UserAlreadyExistsException(
                 "User already exists with email: " + request.getEmail());
         }
-
+        
         User user = User.builder()
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
@@ -62,14 +62,23 @@ public class UserService {
                 .phone(request.getPhone())
                 .role(User.Role.USER)
                 .build();
-
+                
         userRepository.save(user);
-
         logger.info("User registered successfully: {}", user.getEmail());
+
+        // --- NEW CODE ADDED HERE ---
+        // Try to send the welcome email, but don't fail registration if it errors out
+        try {
+            emailService.sendWelcomeEmail(user.getEmail(), user.getFirstName());
+            logger.info("Welcome email sent successfully to: {}", user.getEmail());
+        } catch (Exception e) {
+            logger.error("Failed to send welcome email to: {}", user.getEmail(), e);
+        }
+        // --- END OF NEW CODE ---
 
         String accessToken = jwtUtil.generateAccessToken(
                 user.getEmail(), user.getRole().name());
-
+                
         return AuthResponse.builder()
                 .token(accessToken)
                 .email(user.getEmail())
@@ -214,6 +223,7 @@ public class UserService {
                 .toList();
     }
 
+    @Transactional
     public Map<String, String> sendOtp(SendOtpRequest request) {
 
         logger.info("Sending OTP to email: {}", request.getEmail());

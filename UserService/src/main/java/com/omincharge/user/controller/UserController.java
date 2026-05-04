@@ -13,6 +13,10 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Map;
 
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+
+
 @RestController
 @RequestMapping("/api/v1/users")
 @Tag(name = "User", description = "User registration, login and profile endpoints")
@@ -76,6 +80,9 @@ public class UserController {
 
         return ResponseEntity.ok(userService.getAllUsers(token));
     }
+    
+
+
 
     @Operation(summary = "Send OTP to email for registration")
     @PostMapping("/send-otp")
@@ -97,4 +104,6 @@ public class UserController {
         return ResponseEntity.ok(
             userService.verifyOtp(request.getEmail(), request.getOtp()));
     }
+    
 }
+
